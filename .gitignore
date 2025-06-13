@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg
+*.egg-info/
+dist/
+build/
+*.pyo
+*.pyd
+*.pdb
+
+# 환경설정
+.env
+.venv/
+venv/
+env/
+*.env
+
+# VSCode / PyCharm 설정
+.vscode/
+.idea/
+
+# 시스템 파일
+.DS_Store
+Thumbs.db
+
+# FastAPI / HTML static, templates 관련
+*.db
+*.sqlite3
+
+# Log
+*.log
+
+# Jupyter
+.ipynb_checkpoints/
+
+# pytest 캐시
+.pytest_cache/
