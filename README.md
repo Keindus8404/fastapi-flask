@@ -25,3 +25,9 @@ pip install flask
 새 터미널 - cd frontend
 python app.py
 ```
+
+# 주요 에러
+```
+CROS
+pydantic으로 API서버에서 데이터정의를 했기때문에 타입에 맞게 데이터를 넘겨줘야함
+```

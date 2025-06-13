@@ -6,8 +6,18 @@ from model import *
 from database import SessionLocal,engin
 from schemas import *
 from fastapi.staticfiles import StaticFiles
+from fastapi.middleware.cors import CORSMiddleware
 # Fast api 생성
 app = FastAPI()
+
+# CORS(Cross-Origin Resource Sharing) 설정
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins = ["http://127.0.0.1:5000",'http://localhost:5000'], # flask 주소 허용
+    allow_credentials=True,
+    allow_methods=['*'],
+    allow_headers=['*']
+)
 
 # 앱을 실행하면 DB에 정의된 모든 테이블을 생성
 Base.metadata.create_all(bind=engin)
@@ -41,11 +51,11 @@ def register_user(user: RegisterRequest, db:Session=Depends(get_db)):
     # 같은 사용자가 있으면  400에러로 응답
     if existing_user:
         raise HTTPException(status_code=400, detail="이미 존재하는 사용자입니다.")
-    # 새 유저에대한 객체(인스턴스) 생성성
+    # 새 유저에대한 객체(인스턴스) 생성
     new_user =  User(
         username = user.username,
         email = user.email,
-        password = user.passowrd
+        password = user.password
     )
     # db commit하는 과정과 동일
     db.add(new_user)
