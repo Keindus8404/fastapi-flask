@@ -35,6 +35,9 @@ class CartItem(BaseModel):
     product_id: int
     quantity: int
 
+class CartItemOut(BaseModel):
+    quantity: int
+
 class OrderRequest(BaseModel):    
     user_id: int
 
@@ -43,5 +46,6 @@ class OrderOut(BaseModel):
     user_id: int    
     product_id: int
     quantity: int
+    product: ProductOut
     class Config:   # 객체로 리턴할때
         from_attributes = True    

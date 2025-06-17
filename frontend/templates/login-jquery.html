@@ -4,37 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>login</title>
-    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" 
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" 
+        crossorigin="anonymous"></script>
 </head>
 <body>
     <h2>로그인</h2>
-    <form id="loginform">
+    <form method="POST" action="{{ url_for('login') }}">
+        <input type="hidden" name="next" value="{{ request.args.get('next', '') }}">
         <input type="text" name="username" placeholder="이름" required>
         <input type="password" name="password" required>
         <button type="submit">로그인</button>
     </form>
+    <div>
+        <a href="/register">회원가입</a>
+    </div>
+    <div id="message"></div>
 </body>
-<script>
-    document.getElementById('loginform').addEventListener('submit',
-        async function(e) {
-            e.preventDefault();
-            const formData = new FormData(e.target);
-            const data = {
-                username: $('input[name="username"]').val(),
-                password: $('input[password="password"]').val()
-            };
-            const response = await fetch('http://localhost:8000/api/login',{
-                method:'post',
-                headers:{'Content-Type':'application/json'},
-                body:JSON.stringify(data)
-            });
-            const result = await response.json();
-            if(response.status == 200){
-                alert(result.message);
-            }else{
-                alert(result.detail)
+<!-- <script>
+    $(document).ready(function(){
+         $('#loginform').on('submit',
+            function(e) {
+                e.preventDefault();                
+                const data = {
+                    username: $('input[name="username"]').val(),
+                    password: $('input[name="password"]').val()
+                };
+                $.ajax({
+                    url : 'http://localhost:8000/api/login',
+                    type : 'post',
+                    contentType:'application/json',
+                    data : JSON.stringify(data),
+                    success: function(response){
+                        if(response.success){
+                            window.location.href = '/products'
+                        }
+                    },
+                    error:function(e){                    
+                        $('#message').text('로그인에 실패했습니다. 아이디와 비번을 확인해 주세요')
+                    }
+                })
             }
-        }
-    )
-</script>
+        )
+    })   
+</script> -->
 </html>
